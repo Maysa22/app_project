@@ -43,12 +43,14 @@ class Organization {
 
   factory Organization.fromJson(Map<String, dynamic> json) {
     return Organization(
-      id: json['id'],
-      name: json['name'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      id: json['id'] is int ? json['id'] : int.tryParse(json['id'].toString()) ?? 0,
+      name: json['name'] ?? '',
+      createdAt: json['created_at'] ?? '',
+      updatedAt: json['updated_at'] ?? '',
     );
   }
+
+
 
   Map<String, dynamic> toJson() {
     return {

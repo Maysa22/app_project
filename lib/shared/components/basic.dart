@@ -1,3 +1,4 @@
+import 'package:app_project/styles/colors.dart';
 import 'package:flutter/material.dart';
 ///---------------------------الحقول-----------------------------------///
 class CustomTextField extends StatefulWidget {
@@ -29,24 +30,35 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.all(20),
-      child: TextFormField(
-        controller: widget.controller,
-        obscureText: widget.isPassword,
-        keyboardType: widget.keyboardType,
-        validator: widget.validator,
-        decoration: InputDecoration(
-          labelText: widget.label,
-          border: OutlineInputBorder(),
-          prefix: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
-          suffix: widget.suffixIcon != null
-              ? InkWell(
-            onTap: widget.onSuffixTap,
-            child: Icon(widget.suffixIcon),
-          )
-              : null,
+    return TextFormField(
+      controller: widget.controller,
+      obscureText: widget.isPassword,
+      keyboardType: widget.keyboardType,
+      validator: widget.validator,
+      cursorColor: primaryColor,
+      style: TextStyle(
+        color: Colors.black,
+        fontFamily: 'Tajawal',// النص الذي يكتبه المستخدم
+      ),
+      decoration:
+      InputDecoration(
+        labelText: widget.label,
+        enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: primaryColor),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        prefix: widget.prefixIcon != null ? Icon(widget.prefixIcon) : null,
+        suffix: widget.suffixIcon != null
+            ? InkWell(
+          onTap: widget.onSuffixTap,
+          child: Icon(widget.suffixIcon),
+        )
+            : null,
       ),
     );
   }
@@ -104,3 +116,5 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+///________________________________________________

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import '../../../shared/network/local/cache_helper.dart';
 import '../../../shared/network/remote/dio_helper.dart' show DioHelper;
 import '../../../shared/network/remote/end_points.dart' show LOGIN;
 
@@ -29,13 +30,17 @@ class LoginCubit extends Cubit<LoginState> {
         data: {
           'identifier':email,
           'password':password,
-        }).then((value) {
+        }).then((value) async {
 
       print(value?.data);
       admin= AdminResponse.fromJson(value?.data);
+      final token = admin?.data?.token;
       print(admin!.data!.token);
       print(admin!.data!.user);
-
+      if (token != null) {
+        await CacheHelper.saveToken(token);
+        print("TOKEN SAVED SUCCESSFULLY: $token");
+      }
       emit(LoginSuccessState(admin!));
 
     }).catchError((error){
